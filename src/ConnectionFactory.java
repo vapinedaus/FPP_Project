@@ -3,7 +3,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
  
 public class ConnectionFactory {
-	//http://theopentutorials.com/tutorials/java/jdbc/jdbc-examples-introduction/
     //static reference to itself
     private static ConnectionFactory instance = new ConnectionFactory();
     public static final String URL = "jdbc:sqlserver://localhost;databaseName=ClinicAppointment;user=sa;password=mumsql;";
