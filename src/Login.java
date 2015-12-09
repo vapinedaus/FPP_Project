@@ -12,7 +12,7 @@ public class Login {
 
 	public static void main(String[] args) throws ClassNotFoundException {
 
-		JFrame frame = new JFrame("Clinic Appointment System");
+		JFrame frame = new JFrame("Log-in");
 		frame.setBounds(580, 200,300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		placeComponents(frame);
