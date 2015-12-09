@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {
     //static reference to itself
     private static ConnectionFactory instance = new ConnectionFactory();
-    public static final String URL = "jdbc:sqlserver://localhost;databaseName=ClinicAppointment;user=sa;password=mumsql;";
+    public static final String URL = "jdbc:sqlserver://localhost;databaseName=MovieRental;user=sa;password=mumsql;";
     public static final String DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver"; 
      
     //private constructor

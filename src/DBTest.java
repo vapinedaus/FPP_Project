@@ -14,7 +14,7 @@ public class DBTest {
 		 try {
 			 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");	
 			 System.out.println("Driver Successfully Loaded!");
-			 Connection connect=DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=ClinicAppointment;user=sa;password=mumsql;");
+			 Connection connect=DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=MovieRental;user=sa;password=mumsql;");
 			 System.out.println("Connected to Database!");
 			 connect.close();
 			 System.out.println("Database Closed!");
