@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-public class Login {
+public class LoginView {
 
 	public static void main(String[] args) throws ClassNotFoundException {
 
@@ -54,7 +54,7 @@ public class Login {
 				if (isLoggedin)
 				{
 					frame.setVisible(false);
-					Main mainscreen = new Main();
+					MainView mainscreen = new MainView();
 					mainscreen.createMain();
 				}
 				else
