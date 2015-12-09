@@ -55,12 +55,7 @@ public class Login {
 				{
 					frame.setVisible(false);
 					Main mainscreen = new Main();
-					try {
-						mainscreen.createMain();
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					mainscreen.createMain();
 				}
 				else
 				{

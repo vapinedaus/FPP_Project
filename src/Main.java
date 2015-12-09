@@ -1,35 +1,45 @@
-import java.awt.Component;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-public class Main {
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
-	public static void createMain() throws ClassNotFoundException {
 
-		JFrame frame = new JFrame("Clinic Appointment System");
+public class Main extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void createMain() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Main frame = new Main();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Main() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int xSize = ((int) tk.getScreenSize().getWidth());
 		int ySize = ((int) tk.getScreenSize().getHeight());
-		frame.setSize(xSize,ySize);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		placeComponents(frame);
-		frame.setVisible(true);
-	}
-	private static void placeComponents(JFrame frame) {
-		frame.setLayout(null); // you can do absolute positioning
-
-			
+		setSize(xSize,ySize);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 	}
 
 }
-
-	
-		
-
