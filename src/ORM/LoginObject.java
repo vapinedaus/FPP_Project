@@ -1,3 +1,4 @@
+package ORM;
 
 public class LoginObject {
 
