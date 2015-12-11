@@ -2,8 +2,8 @@ package ORM;
 
 public class LoginObject {
 
-	public String username;
-	public String password;
+	private  String username;
+	private  String password;
 	public String getUsername() {
 		return username;
 	}
