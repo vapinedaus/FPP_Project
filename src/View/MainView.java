@@ -132,7 +132,7 @@ public class MainView extends JFrame {
 		custDtlPanel.add(lblCustMembership,c);
 		
 		//RENTED MOVIES
-		JPanel rentedPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		//JPanel rentedPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
 		
 		centerPanel.add(custDtlPanel);
