@@ -1,14 +1,23 @@
 package View;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
 
 
 public class MainView extends JFrame {
 
 	private JPanel contentPane;
-
+	private JTextField txtCustomerSearch;
+	private JTable table;
 	
 	/**
 	 * Launch the application.
@@ -19,7 +28,6 @@ public class MainView extends JFrame {
 				try {
 					MainView frame = new MainView();
 					frame.setVisible(true);
-					layoutComponents(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -31,7 +39,7 @@ public class MainView extends JFrame {
 	 * Create the frame.
 	 */
 	public MainView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		/*setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		setTitle("Movie Rental Management System");
 		int xSize = ((int) tk.getScreenSize().getWidth());
@@ -40,106 +48,127 @@ public class MainView extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane); */
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Movie Rental Management System");
+		setBounds(0,0,800,700);
+		setResizable(false);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) panel_1.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		panel_1.setBounds(0, 0, 784, 27);
+		contentPane.add(panel_1);
+		
+		JMenuBar menuBar = new JMenuBar();
+		panel_1.add(menuBar);
+		
+		JMenu mnCustomer = new JMenu("Customer");
+		menuBar.add(mnCustomer);
+		
+		JMenuItem mntmAddCust = new JMenuItem("Add");
+		mnCustomer.add(mntmAddCust);
+		
+		JMenuItem mntmSearch = new JMenuItem("Search");
+		mnCustomer.add(mntmSearch);
+		
+		JMenu mnMovie = new JMenu("Movie");
+		menuBar.add(mnMovie);
+		
+		JMenuItem mntmAddMovie = new JMenuItem("Add");
+		mnMovie.add(mntmAddMovie);
+		
+		JMenuItem mntmSearchMovie = new JMenuItem("Search");
+		mnMovie.add(mntmSearchMovie);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 25, 784, 33);
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		contentPane.add(panel);
+		
+		txtCustomerSearch = new JTextField();
+		panel.add(txtCustomerSearch);
+		txtCustomerSearch.setColumns(30);
+		
+		JButton btnCustSearch = new JButton("Search Customer");
+		btnCustSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		panel.add(btnCustSearch);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 60, 784, 135);
+		contentPane.add(panel_2);
+		panel_2.setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
+		
+		JLabel lblCustDetailHdr = new JLabel("<HTML><B><U>CUSTOMER DETAILS:</U></B></HTML>");
+		panel_2.add(lblCustDetailHdr, "2, 2");
+		
+		JLabel lblID = new JLabel("Customer ID:");
+		lblID.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_2.add(lblID, "2, 4, left, bottom");
+		
+		JLabel lblCustomerID = new JLabel("<CUSTOMER ID>");
+		lblCustomerID.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_2.add(lblCustomerID, "4, 4");
+		
+		JLabel lblName = new JLabel("Name:");
+		lblName.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_2.add(lblName, "2, 6");
+		
+		JLabel lblCustomerName = new JLabel("<CUSTOMER NAME>");
+		lblCustomerName.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_2.add(lblCustomerName, "4, 6");
+		
+		JLabel lblContact = new JLabel("Contact No.:");
+		lblContact.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_2.add(lblContact, "2, 8");
+		
+		JLabel lblCustomerContact = new JLabel("<CUSTOMER CONTACT>");
+		panel_2.add(lblCustomerContact, "4, 8");
+		
+		JLabel lblMembership = new JLabel("Membership:");
+		lblMembership.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_2.add(lblMembership, "2, 10");
+		
+		JLabel lblCustMembership = new JLabel("<MEMBERSHIP>");
+		lblCustMembership.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_2.add(lblCustMembership, "4, 10");
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 206, 784, 135);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		JButton btnRentVideo = new JButton("Rent Video");
+		btnRentVideo.setBounds(656, 352, 128, 23);
+		contentPane.add(btnRentVideo);
 	}
 	
-	public static void layoutComponents(JFrame jFrame)
-	{
-		//START MENU BAR
-		JMenuBar menuBar = new JMenuBar();
-		JMenu customerMenu = new JMenu("Customer");
-		JMenu movieMenu = new JMenu("Movie");
-
-		JMenuItem addCustMenuItem = new JMenuItem("Add");
-		customerMenu.add(addCustMenuItem);
-		JMenuItem searchCustMenuItem = new JMenuItem("Search");
-		customerMenu.add(searchCustMenuItem);
-		
-		JMenuItem searchMovie = new JMenuItem("Search");
-		movieMenu.add(searchMovie);
-		
-		menuBar.add(customerMenu);
-		menuBar.add(movieMenu);
-		
-		jFrame.setJMenuBar(menuBar);
-		//END MENU BAR
-		
-		//START HEADER PANEL
-		JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jFrame.add(searchPanel, BorderLayout.NORTH);
-		
-		final JTextField txtCustomer = new JTextField(100);
-		txtCustomer.setColumns(50);
-		JButton btnSearchCust = new JButton("Search Customer");
-		
-		searchPanel.add(txtCustomer);
-		searchPanel.add(btnSearchCust);
-		//END HEADER PANEL
-		
-		//START CENTER PANEL
-		JPanel centerPanel = new JPanel(new GridLayout(2,1));
-		jFrame.add(centerPanel, BorderLayout.WEST);
-		
-		JPanel custDtlPanel = new JPanel(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		
-		JLabel lblCustDetailHdr = new JLabel("<HTML><U>CUSTOMER DETAILS:</U></HTML>", SwingConstants.LEFT);
-		JLabel lblCustID = new JLabel("Customer ID:", SwingConstants.LEFT);
-		JLabel lblCustomerID = new JLabel("ABC-101010", SwingConstants.LEFT);
-		JLabel lblName = new JLabel("Name:", SwingConstants.LEFT);
-		JLabel lblCustName = new JLabel("Jennyfer", SwingConstants.LEFT);
-		JLabel lblContact = new JLabel("Contact No.:", SwingConstants.LEFT);
-		JLabel lblCustContact = new JLabel("6414512222", SwingConstants.LEFT);
-		JLabel lblMembership = new JLabel("Member Status:", SwingConstants.LEFT);
-		JLabel lblCustMembership = new JLabel("Active", SwingConstants.LEFT);
-
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;
-		custDtlPanel.add(lblCustDetailHdr,c);
-		//custDtlPanel.add(lblFiller);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 1;
-		custDtlPanel.add(lblCustID, c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 1;
-		custDtlPanel.add(lblCustomerID,c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 2;
-		custDtlPanel.add(lblName,c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 2;
-		custDtlPanel.add(lblCustName,c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 3;
-		custDtlPanel.add(lblContact,c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 3;
-		custDtlPanel.add(lblCustContact,c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 4;
-		custDtlPanel.add(lblMembership,c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 4;
-		custDtlPanel.add(lblCustMembership,c);
-		
-		//RENTED MOVIES
-		//JPanel rentedPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		
-		
-		centerPanel.add(custDtlPanel);
-		//END CENTER PANEL
-		
-		
-		
-	}
 
 }
