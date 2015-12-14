@@ -21,6 +21,8 @@ import javax.swing.border.EmptyBorder;
 import net.proteanit.sql.DbUtils;
 import Controller.RentController;
 import UtilityClass.ConnectionFactory;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class RentMovie extends JFrame {
 
@@ -52,38 +54,14 @@ public class RentMovie extends JFrame {
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Rent Movie");
-		setBounds(100, 100, 860, 426);
+		setBounds(100, 100, 501, 292);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Movie ID");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(40, 44, 62, 29);
-		contentPane.add(lblNewLabel);
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField.setBounds(95, 44, 193, 29);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JButton Returned = new JButton("Search");
-		Returned.setFont(new Font("Tahoma", Font.BOLD, 11));
-		Returned.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				RentController controller = new RentController();
-				ResultSet rs = controller.rent(textField.getText());
-				
-				table.setModel(DbUtils.resultSetToTableModel(rs));
-			}
-		});
-		Returned.setBounds(95, 106, 103, 29);
-		contentPane.add(Returned);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(92, 196, 657, 61);
+		scrollPane.setBounds(10, 139, 446, 45);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -100,8 +78,45 @@ public class RentMovie extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNewButton.setBounds(340, 311, 115, 29);
+		btnNewButton.setBounds(338, 212, 115, 29);
+		
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(10, 31, 446, 61);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		contentPane.add(btnNewButton);
+		
+		JLabel lblNewLabel = new JLabel("Movie ID:");
+		lblNewLabel.setBounds(10, 11, 62, 29);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		textField = new JTextField();
+		textField.setBounds(82, 15, 229, 20);
+		panel.add(textField);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField.setColumns(10);
+		
+		JButton Returned = new JButton("Search");
+		Returned.setBounds(321, 11, 103, 29);
+		panel.add(Returned);
+		Returned.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		JLabel lblMovieDetails = new JLabel("Movie Details:");
+		lblMovieDetails.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMovieDetails.setBounds(20, 103, 105, 29);
+		contentPane.add(lblMovieDetails);
+		Returned.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RentController controller = new RentController();
+				ResultSet rs = controller.rent(textField.getText());
+				
+				table.setModel(DbUtils.resultSetToTableModel(rs));
+			}
+		});
+		
 	}
 	
 	
