@@ -94,12 +94,16 @@ public class RentalHistoryDAO {
           }
     }
     
-    public void upadte(int customerId, int movieId, Date returndate){
-    	String query = "UPDATE RentalHistory SET ReturnDate=" + returndate + "' WHERE Movie_ID=" + movieId + " AND Customer_ID=" + customerId + " ";
+    public void upadte(int customerId, int movieId){
+        Date returndate = new Date();
+        java.sql.Date returnD = new java.sql.Date(returndate.getTime());
+    	String query = "UPDATE RentalHistory SET ReturnDate= '" + returnD + "' WHERE Movie_ID= " + movieId + " AND Customer_ID= " + customerId ;
     	try {
    		 	connection = ConnectionFactory.getConnection();
             st = connection.createStatement();
 			st.executeUpdate(query);
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,5 +112,35 @@ public class RentalHistoryDAO {
            DbUtil.close(connection);          
        }
     	
+    }
+    
+    public RentalHistoryObject select(int customerId, int movieId)
+    {
+    	String query = "select * from RentalHistory where Customer_ID="+customerId+" and Movie_ID="+movieId;
+    	try {
+   		 	connection = ConnectionFactory.getConnection();
+   		 st = connection.createStatement();
+   		ResultSet rs = st.executeQuery(query); 
+ 
+         RentalHistoryObject rhObject = new RentalHistoryObject();
+		
+	    if (rs != null) {
+            while (rs.next()) {
+            	rhObject.setReturnDate(rs.getDate("ReturnDate"));
+            	rhObject.setExpectedReturnDate(rs.getDate("ExpectedReturnDate"));
+            }
+         }
+   		
+		return rhObject;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+           DbUtil.close(st);
+           DbUtil.close(connection);          
+       }
+    	
+    	return null;
     }
 }
