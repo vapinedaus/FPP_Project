@@ -3,9 +3,13 @@ package View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
+import java.sql.SQLException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import net.proteanit.sql.DbUtils;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -13,6 +17,8 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import Controller.MainViewController;
+import ORM.CustomersObject;
+import ORM.RentalHistoryObject;
 
 
 public class MainView extends JFrame {
@@ -29,6 +35,9 @@ public class MainView extends JFrame {
 	JLabel lblCustomerName;
 	JLabel lblCustomerContact;
 	JLabel lblCustMembership;
+	MainViewController mainViewController = new MainViewController();
+	JButton btnReturn;
+	int custID;
 	
 	
 	/**
@@ -75,15 +84,13 @@ public class MainView extends JFrame {
 		JMenuItem mntmAddCust = new JMenuItem("Add");
 		mnCustomer.add(mntmAddCust);
 		
-		JMenuItem mntmSearch = new JMenuItem("Search");
-		mnCustomer.add(mntmSearch);
+	//	JMenuItem mntmSearch = new JMenuItem("Search");
+	//	mnCustomer.add(mntmSearch);
 		
 		JMenu mnMovie = new JMenu("Movie");
 		menuBar.add(mnMovie);
 		
-		JMenuItem mntmAddMovie = new JMenuItem("Add");
-		mnMovie.add(mntmAddMovie);
-		
+	
 		JMenuItem mntmSearchMovie = new JMenuItem("Search");
 		mnMovie.add(mntmSearchMovie);
 		
@@ -101,6 +108,13 @@ public class MainView extends JFrame {
 		btnCustSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean isCustExist = false;
+				
+				CustomersObject custObj = mainViewController.getCustomerDetails(txtCustomerSearch.getText().trim());
+				
+				if(custObj.getCustomer_ID() != 0)
+				{
+					isCustExist = true;
+				}
 				
 				if(isCustExist)
 				{
@@ -187,6 +201,47 @@ public class MainView extends JFrame {
 		btnRentVideo = new JButton("Rent Video");
 		btnRentVideo.setBounds(656, 352, 128, 23);
 		contentPane.add(btnRentVideo);
+		btnRentVideo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RentMovie rentObj = new RentMovie();
+				rentObj.createRentMain(custID);
+				
+			}
+		});
+		
+		btnReturn = new JButton("Return");
+		btnReturn.setBounds(500, 352, 128, 23);
+		contentPane.add(btnReturn);
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReturnMovie Obj = new ReturnMovie();
+				Obj.returnMain(custID);
+				
+			}
+		});
+		
+		mntmAddCust.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				AddCustomer Obj = new AddCustomer();
+				Obj.mainAdd();
+				
+			}
+		});
+		
+		mntmSearchMovie.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				MovieSearch Obj;
+				try {
+					Obj = new MovieSearch();
+					Obj.movie();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
 		
 		panel_2.setVisible(false);
 		btnRentVideo.setVisible(false);
@@ -199,15 +254,30 @@ public class MainView extends JFrame {
 	{
 		scrollPane.setVisible(true);
 		
+		table.setModel(DbUtils.resultSetToTableModel(mainViewController.getRentalHistory(custID)));
+		
 	}
 	
 	private void populateCustomerDetails()
 	{	
 		panel_2.setVisible(true);
+		CustomersObject custObj = mainViewController.getCustomerDetails(txtCustomerSearch.getText().trim());
 		
-		lblCustomerID.setText("");
-		lblCustomerName.setText("");
-		lblCustomerContact.setText("");
-		lblCustMembership.setText("");
+		custID = custObj.getCustomer_ID();
+		
+		lblCustomerID.setText(String.valueOf(custObj.getCustomer_ID()));
+		lblCustomerName.setText(custObj.getName());
+		lblCustomerContact.setText(custObj.getContact());
+		
+		if(custObj.isMember())
+		{
+			lblCustMembership.setText("MEMBER");
+			lblCustMembership.setForeground(Color.GREEN);
+		}
+		else
+		{
+			lblCustMembership.setText("NON-MEMBER");
+			lblCustMembership.setForeground(Color.RED);			
+		}
 	}
 }

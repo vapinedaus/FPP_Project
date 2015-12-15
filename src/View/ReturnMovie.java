@@ -28,11 +28,11 @@ public class ReturnMovie extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void returnMain(int custid) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReturnMovie frame = new ReturnMovie();
+					ReturnMovie frame = new ReturnMovie(custid);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,8 +45,11 @@ public class ReturnMovie extends JFrame {
 	 * Create the frame.
 	 */
 	public ReturnMovie() {
+		
+	}
+	public ReturnMovie(int custid) {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Return Movie");
 		setBounds(100, 100, 404, 236);
 		contentPane = new JPanel();
@@ -76,7 +79,7 @@ public class ReturnMovie extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				RentController obj = new RentController();
 				try {
-					String str = obj.returnMovie(1, Integer.parseInt(textField.getText()));
+					String str = obj.returnMovie(custid, Integer.parseInt(textField.getText()));
 					lblResult.setText(str);
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
@@ -96,11 +99,13 @@ public class ReturnMovie extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Customer ID:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1.setBounds(34, 47, 87, 14);
+		lblNewLabel_1.setForeground(Color.GREEN);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		lblNewLabel_2.setBounds(127, 48, 46, 14);
 		contentPane.add(lblNewLabel_2);
+		lblNewLabel_2.setText(String.valueOf(custid));
 	}
 }

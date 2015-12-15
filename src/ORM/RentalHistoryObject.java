@@ -9,7 +9,16 @@ public class RentalHistoryObject {
 	private Date BorrowedDate;
 	private Date ReturnDate;
 	private Date ExpectedReturnDate;
+	private String MovieName;
 	
+	public String getMovieName() {
+		return MovieName;
+	}
+
+	public void setMovieName(String movieName) {
+		MovieName = movieName;
+	}
+
 	public RentalHistoryObject() {
 		// TODO Auto-generated constructor stub
 	}

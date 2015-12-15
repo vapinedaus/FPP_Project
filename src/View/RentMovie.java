@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +22,9 @@ import javax.swing.border.EmptyBorder;
 import net.proteanit.sql.DbUtils;
 import Controller.RentController;
 import UtilityClass.ConnectionFactory;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 
 public class RentMovie extends JFrame {
@@ -34,11 +37,11 @@ public class RentMovie extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void createRentMain(int cid) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RentMovie frame = new RentMovie();
+					RentMovie frame = new RentMovie(cid);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,9 +53,13 @@ public class RentMovie extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RentMovie() {
+	public RentMovie()
+	{
+		
+	}
+	public RentMovie(int cid) {
 	
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Rent Movie");
 		setBounds(100, 100, 501, 292);
 		contentPane = new JPanel();
@@ -73,7 +80,7 @@ public class RentMovie extends JFrame {
 				RentController obj = new RentController();
 				
 				//main window customer id;
-			//	obj.book(Integer.parseInt(textField.getText()));
+			obj.book(cid,Integer.parseInt(textField.getText()));
 			   
 			}
 		});
@@ -83,7 +90,7 @@ public class RentMovie extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(10, 31, 446, 61);
+		panel.setBounds(10, 31, 446, 70);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		contentPane.add(btnNewButton);
@@ -99,21 +106,41 @@ public class RentMovie extends JFrame {
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField.setColumns(10);
 		
-		JButton Returned = new JButton("Search");
-		Returned.setBounds(321, 11, 103, 29);
-		panel.add(Returned);
-		Returned.setFont(new Font("Tahoma", Font.BOLD, 11));
+		JButton Search = new JButton("Search");
+		Search.setBounds(321, 11, 103, 20);
+		panel.add(Search);
+		Search.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JLabel lblMovieDetails = new JLabel("Movie Details:");
 		lblMovieDetails.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblMovieDetails.setBounds(20, 103, 105, 29);
 		contentPane.add(lblMovieDetails);
-		Returned.addActionListener(new ActionListener() {
+		Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				RentController controller = new RentController();
 				ResultSet rs = controller.rent(textField.getText());
 				
 				table.setModel(DbUtils.resultSetToTableModel(rs));
+			}
+		});
+		
+		
+		JButton AdvanceSearch = new JButton("Advance Search");
+		AdvanceSearch.setBounds(300, 40, 140, 20);
+		panel.add(AdvanceSearch);
+		AdvanceSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
+		AdvanceSearch.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				MovieSearch Obj;
+				try {
+					Obj = new MovieSearch();
+					Obj.movie();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
 			}
 		});
 		

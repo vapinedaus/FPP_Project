@@ -30,7 +30,7 @@ public class AddCustomer extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void mainAdd() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -47,7 +47,7 @@ public class AddCustomer extends JFrame {
 	 * Create the frame.
 	 */
 	public AddCustomer() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Customer Registration");
 		setBounds(100, 100, 427, 246);
 		contentPane = new JPanel();

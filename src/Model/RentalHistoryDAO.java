@@ -35,11 +35,11 @@ public class RentalHistoryDAO {
          stmt.setInt( 2, movieId );
          
          java.sql.Date borrow = new java.sql.Date(borrowedDate.getTime());
-         java.sql.Date returnD = new java.sql.Date(returnDate.getTime());
+         //java.sql.Date returnD = new java.sql.Date(null);
          java.sql.Date expected = new java.sql.Date(expectedReturnDate.getTime());
         
          stmt.setDate(3, borrow);
-         stmt.setDate(4, returnD);
+         stmt.setDate(4, null);
          stmt.setDate(5, expected);
          
          stmt.executeUpdate();
@@ -56,42 +56,33 @@ public class RentalHistoryDAO {
     }
     
     @SuppressWarnings({ "finally", "resource" })
-	public RentalHistoryObject [] search(int id){
-    	  String query = "SELECT * FROM RentalHistory WHERE Customer_ID=" + id + " AND ReturnDate =" + null + " "; 
-    	  String count = "SELECT COUNT(*) FROM RentalHistory WHERE Customer_ID=" + id + " AND ReturnDate IS NULL"; 
+	public ResultSet search(int id){
+    	  String query = "SELECT * FROM RentalHistory WHERE Customer_ID=" + id + " AND ReturnDate IS NULL"; 
+    	//  String count = "SELECT COUNT(*) FROM RentalHistory WHERE Customer_ID=" + id + " AND ReturnDate IS NULL"; 
           ResultSet rs = null;
           int rowcount = 0;
           RentalHistoryObject temp;// = new RentalHistoryObject();
           RentalHistoryObject [] rent = null;//new RentalHistoryObject() ;
-          
-          try {
-              connection = ConnectionFactory.getConnection();
-              st = connection.createStatement();
-              rs = st.executeQuery(count);      
-             
-              // get the number of rows from the result set
-              rs.next();
-              rowcount = rs.getInt(1);    
-              
-              rs = st.executeQuery(query);
-              if (rs != null){
-            	 rent = new RentalHistoryObject[rowcount];
-            	 for(int i =0; i < rowcount;i++){
-            		 temp = new RentalHistoryObject();
-            		 temp.setCustomer_ID(rs.getInt(0));
-            		 temp.setMovie_ID(rs.getInt(1));
-            		 temp.setBorrowedDate(rs.getDate(2));
-               	  	 temp.setReturnDate(rs.getDate(3));
-               	  	 temp.setExpectedReturnDate(rs.getDate(4));
-               	  	 rent[i] = temp;
-            	 }
+
+          connection = ConnectionFactory.getConnection();
+              try {
+				st = connection.createStatement();
+	            rs = st.executeQuery(query);
+	           // rs.next();
+		        return rs;
+
+              } 
+              catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
               }
-              }finally {
-              DbUtil.close(rs);
-              DbUtil.close(st);
-              DbUtil.close(connection);
-              return rent;
+              finally {
+             // DbUtil.close(rs);
+              //DbUtil.close(st);
+              //DbUtil.close(connection);
+
           }
+          return null;
     }
     
     public void upadte(int customerId, int movieId){

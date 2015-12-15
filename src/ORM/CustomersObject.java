@@ -47,6 +47,9 @@ public class CustomersObject {
 		return Customer_ID;
 	}
 
-	
+	public void setCustomer_ID(int customer_ID) {
+		Customer_ID = customer_ID;
+	}
+
 	
 }

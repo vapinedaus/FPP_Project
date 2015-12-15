@@ -13,6 +13,11 @@ public class MovieDAO {
 	private Connection connection;
     private Statement st;
     
+    MovieDAO()
+    {
+    	
+    }
+    
     @SuppressWarnings("finally")
 	public MoviesObject search(int id){
     	  String query = "SELECT * FROM Movies WHERE Movie_ID='" + id + "'";

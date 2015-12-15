@@ -2,10 +2,16 @@ package Controller;
 
 import ORM.CustomersObject;
 import ORM.RentalHistoryObject;
+import Model.RentalHistoryDAO;
+import Model.CustomerDAO;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
 public class MainViewController {
+	
+	
 	
 	public MainViewController()
 	{
@@ -14,16 +20,19 @@ public class MainViewController {
 	
 	public CustomersObject getCustomerDetails(String custName)
 	{
-		CustomersObject custObj = new CustomersObject();
+		CustomerDAO custDAO = new CustomerDAO();
+		CustomersObject custObj = custDAO.search(custName);
 		
 		return custObj;
 	}
 	
-	public RentalHistoryObject[] getRentalHistory(int custID)
+	public ResultSet getRentalHistory(int custID)
 	{
-		RentalHistoryObject[] rentHistArr = new RentalHistoryObject[10];
+		RentalHistoryDAO rentHistDAO = new RentalHistoryDAO();
+		ResultSet rentHistArr = rentHistDAO.search(custID);
 		
 		return rentHistArr;
 	}
+	
 
 }
