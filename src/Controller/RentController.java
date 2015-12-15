@@ -2,6 +2,7 @@ package Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 
 import Model.*;
@@ -31,12 +32,15 @@ public class RentController {
 		Date returnD =rs.getReturnDate();
 		Date expectedD = rs.getExpectedReturnDate();
 		
-		if(returnD.compareTo(expectedD)>1)
+		
+
+		
+		if((returnD.getTime() >expectedD.getTime()))
 		{
 			@SuppressWarnings("deprecation")
 			int diff = returnD.getDay() - expectedD.getDay();
 			
-			return "You have to pay penality cost of $"+diff+" for not returning on the expected date.";
+			return " Pay the penalty of $"+ Math.abs(diff)+".";
 		}
 		else
 			return "Return is successful";

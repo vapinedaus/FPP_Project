@@ -57,7 +57,7 @@ public class RentalHistoryDAO {
     
     @SuppressWarnings({ "finally", "resource" })
 	public ResultSet search(int id){
-    	  String query = "SELECT * FROM RentalHistory WHERE Customer_ID=" + id + " AND ReturnDate IS NULL"; 
+    	  String query = "SELECT B.Movie_ID, B.MovieName, A.BorrowedDate,A.ExpectedReturnDate FROM RentalHistory A Left Join Movies B On A.Movie_ID = B.Movie_ID WHERE A.Customer_ID=" + id + " AND A.ReturnDate IS NULL"; 
     	//  String count = "SELECT COUNT(*) FROM RentalHistory WHERE Customer_ID=" + id + " AND ReturnDate IS NULL"; 
           ResultSet rs = null;
           int rowcount = 0;

@@ -69,7 +69,7 @@ public class ReturnMovie extends JFrame {
 		
 		JLabel lblResult = new JLabel("");
 		lblResult.setForeground(Color.RED);
-		lblResult.setBounds(34, 7, 372, 29);
+		lblResult.setBounds(34, 7, 372, 50);
 		lblResult.setVisible(true);
 		contentPane.add(lblResult);
 		

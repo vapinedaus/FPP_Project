@@ -68,7 +68,7 @@ public class MainView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+	
 		JPanel panel_1 = new JPanel();
 		FlowLayout flowLayout_1 = (FlowLayout) panel_1.getLayout();
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
@@ -123,10 +123,21 @@ public class MainView extends JFrame {
 					populateTable();
 				
 					btnRentVideo.setVisible(true);
+					btnReturn.setVisible(true);
+					lblNotExistCust.setVisible(false);
+					panel_2.setVisible(true);
+					scrollPane.setVisible(true);
+
 				}
 				else
 				{
 					lblNotExistCust.setVisible(true);
+					btnRentVideo.setVisible(false);
+					btnReturn.setVisible(false);
+					panel_2.setVisible(false);
+					scrollPane.setVisible(false);
+
+				
 				}
 				
 			}
@@ -219,6 +230,7 @@ public class MainView extends JFrame {
 				
 			}
 		});
+		btnReturn.setVisible(false);
 		
 		mntmAddCust.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
